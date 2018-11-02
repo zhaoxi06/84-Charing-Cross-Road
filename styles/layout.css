@@ -52,3 +52,36 @@ article img{
 	outline-width: .1em;
 	outline-style: solid;
 }
+#slideshow{
+	width: 170px;
+	height: 170px;
+	position: relative;
+	border-radius: 10px;
+	overflow: hidden;
+}
+#preview{
+	position: absolute;
+	border-width: 0;
+	outline-width: 0;
+}
+#imagegallery li{
+	display: inline;
+}
+td{
+	padding: .5em 3em;
+}
+dl{
+	overflow: hidden;;
+}
+dt{
+	float: left;
+}
+dd{
+	float: left;
+}
+label{
+	display: block;
+}
+fieldset{
+	border:0;
+}

@@ -1,26 +1,26 @@
 body{
 	color: #fb5;
-	background: #334;
+	background-color: #334;
 }
 a:link{
 	color: #445;
-	background: #eb6;
+	background-color: #eb6;
 }
 a:visited{
 	color: #345;
-	background: #eb6;
+	background-color: #eb6;
 }
 a:hover{
 	color: #778;
-	background: #ec8;
+	background-color: #ec8;
 }
 a:acitve{
 	color: #778;
-	background: #ec8;
+	background-color: #ec8;
 }
 header{
 	color: #ec8;
-	background: #334;
+	background-color: #334;
 	border-color: #667;
 }
 header nav{
@@ -62,4 +62,23 @@ header nav a.here:hover,
 header nav a.here:active{
 	color: #eef;
 	background-color: #779;
+}
+th{
+	color: #edc;
+	background-color: #445;
+}
+tr td {
+	color: #223;
+	background-color: #eb6;
+}
+tr.odd td{
+	color: #233;
+	background-color: #ec8;
+}
+tr.highlight td{
+	color: #233;
+	background-color: #cba;
+}
+input.placeholder{
+	color: grey;
 }
