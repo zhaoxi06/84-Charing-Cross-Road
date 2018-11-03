@@ -25,21 +25,21 @@ JavaScript DOM编程艺术这本书，断断续续地终于在今天看完了。
 ## 四、发现的两处错误
 1、isFilled()中，if(!filed.value.replace(" ","").length) return false;检查去掉空格之后的value属性的length属性，以此来判断value中是否没有任何除
 空格外的字符。replace(" ","")只会匹配一个，如果有多个空格，还是会校验通过，改成if(!filed.value.replace(/ /g,"").length) return false;增加全局
-匹配g，即可匹配全部。
+匹配g，即可匹配全部。  
 2、validateForm（）中，if(element.required == "required")，如果这个字段必填，就对它进行检测。element.required ->true,true!="required”,导致
-不会执行if判断后面的语句。改为if(element.getAttribute("required") == "required")就可以了。
-
+不会执行if判断后面的语句。改为if(element.getAttribute("required") == "required")就可以了。  
+  
  ## 五、一些优点和需要学习的地方
- 1、为网页添加各种行为时始终遵循“渐进增强”的原则，所以函数中出现很多
- if(!document.createElement) return false;
- if(!document.createTextNode) return false;
- if(!document.getElementById) return false;
- 这样的语句。
- 2、考虑到后面可能会函数复用，还加了类似于 if(!document.getElementById("imagegallery")) return false;的判断，以及对函数充分的抽象。
- 3、prepareInternalnav函数中，sectionId作为一个局部变量，由于作用域问题，可以将局部变量赋值给自定义属性，属性的作用域是持久存在的。
+ 1、为网页添加各种行为时始终遵循“渐进增强”的原则，所以函数中出现很多  
+ if(!document.createElement) return false;  
+ if(!document.createTextNode) return false;  
+ if(!document.getElementById) return false;  
+ 这样的语句。  
+ 2、考虑到后面可能会函数复用，还加了类似于 if(!document.getElementById("imagegallery")) return false;的判断，以及对函数充分的抽象。  
+ 3、prepareInternalnav函数中，sectionId作为一个局部变量，由于作用域问题，可以将局部变量赋值给自定义属性，属性的作用域是持久存在的。  
  4、把需要的内容都放在有效的、语义化的标签里，并用外部样式表实现整个外观设计，用JS和DOM添加交互功能和可用性方面的增强。即使js全部拿走，网站也能正常
- 运作，很好地做到了平稳退化。
- 5、贯穿整本书的思路：平稳退化、渐进增强、以用户为中心的设计。
+ 运作，很好地做到了平稳退化。  
+ 5、贯穿整本书的思路：平稳退化、渐进增强、以用户为中心的设计。  
  
  ## 六、遗留问题
- ajax方面的问题暂且不表，所以global.js中于ajax有关的代码是没有调试的~但不影响网站的整体功能。
+ ajax方面的问题暂且不表，所以global.js中于ajax有关的代码是没有调试的~但不影响网站的整体功能。  
