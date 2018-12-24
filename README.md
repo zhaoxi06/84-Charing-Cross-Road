@@ -1,3 +1,5 @@
+展示<br>
+![展示](images/show.gif)
 # 84-Charing-Cross-Road
 你若恰好路过查令十字街84号，请代我献上一吻，我亏欠它良多......  
 JavaScript DOM编程艺术这本书，断断续续地终于在今天看完了。84 Charing Cross Road也正是基于第12章的综合实例Jay Skript and the Domsters乐队
