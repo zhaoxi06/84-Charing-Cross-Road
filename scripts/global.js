@@ -305,16 +305,19 @@ function prepareForms(){
 	for(var i=0;i<document.forms.length;i++){
 		var thisform = document.forms[i];
 		resetFields(thisform);
-		console.log(thisform);
 		thisform.onsubmit = function(){
 			return validateForm(this);
+			// if(!validateForm(this)) return false;
+			// var article = document.getElementsByTagName("article")[0];
+			// if(submitFormWithAjax(this,article)) return false;
+			// return true;
 		}
 	}
 }
 addLoadEvent(prepareForms);
 
 function isFilled(filed){
-	if(!filed.value.replace(" ","").length) return false;
+	if(!filed.value.replace(/ /g,"").length) return false;
 	var placeholder = filed.placeholder || filed.getAttribute("placeholder");
 	return (filed.value != placeholder);
 }
@@ -324,19 +327,72 @@ function isEmail(filed){
 function validateForm(whichform){
 	for(var i=0;i<whichform.elements.length;i++){
 		var element = whichform.elements[i];
-		console.log(element.required== "required");
-		if(element.required == "required"){console.log(111);
+		if(element.getAttribute("required") == "required"){
 			if(!isFilled(element)){
 				alert("Please fill in the "+element.name+" filed.");
 				return false;
 			}
 		}
-		if(element.type == "mail"){
+		if(element.type == "email"){
 			if(!isEmail(element)){
 				alert("The "+element.name+" filed must be a valid email address.");
 				return false;
 			}
 		}
 	}
+	return true;
+}
+
+function getHTTPbject(){
+	if(typeof XMLHttpRequest == "undefined"){
+		XMLHttpRequest = function(){
+			try {return new ActiveObject("Msxml2.XMLHTTP.6.0");}
+				catch (e){}
+			try {return new ActiveObject("Msxml2.XMLHTTP3.0");}
+				catch (e){}
+			try {return new ActiveObject("Msxml2.XMLHTTP");}
+				catch (e){}
+		}
+		return false;
+	}
+	return new XMLHttpRequest();
+}
+function displayAjaxLoading(element){
+	while(element.hasChildNodes()){
+		element.removeChild(element.lastChild);
+	}
+	var content = document.createElement("img");
+	content.setAttribute("src","images/loading.gif");
+	content.setAttribute("alt","Loading...");
+	element.appendChild(content);
+}
+function submitFormWithAjax(whichform, thetarget){
+	var request = getHTTPbject();
+	if(!request) return false;
+	displayAjaxLoading(thetarget);
+	var dataParts = [];
+	var element;
+	for(var i=0;i<whichform.elements.length;i++){
+		element = whichform.elements[i];
+		dataParts[i] = element.name + "=" + encodeURIComponent(element.value);
+	}
+	var data = dataParts.join("&");
+	request.open("POST",whichform.getAttribute("action"),true);
+	request.setRequestHeader("content-type","application/x-www-form-urlencoded");
+	request.onreadystatechange = function(){
+		if(request.readyState == 4){
+			if(request.status == 200 || request.status == 0){
+				var matches = request.responseText.match(/<article>([\s\S]+)<\/article>/);
+				if(matches.length > 0){
+					thetarget.innerHTML = matches[1];
+				}else{
+					thetarget.innerHTML = "<p>Oops, there was an error.Sorry.</p>";
+				}
+			}else{
+				thetarget.innerHTML = "<p>"+request.statusText + "</p>";
+			}
+		}
+	};
+	request.send(data);
 	return true;
 }
